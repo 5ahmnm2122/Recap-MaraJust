@@ -18,7 +18,6 @@ public class MonkeyBehavior : MonoBehaviour
     {
         Score = 0;
         WinText.enabled = false;
-        monkey.SetActive(false);
         Appearing();
 
         InvokeRepeating("Appearing", 0, 2);
@@ -31,26 +30,18 @@ public class MonkeyBehavior : MonoBehaviour
 
         if(Score >= 10)
         {
-            monkey.SetActive(false);
             WinText.enabled = true;
+            CancelInvoke();
         }
         
     }
 
     public void Appearing ()
     {
-        monkey.SetActive(false);
         var positionNew = new Vector2(Random.Range(-6.5f,6.4f), Random.Range(-3.4f,2.5f));
-        monkey.transform.position = positionNew;
-        monkey.SetActive(true);
+        Instantiate(monkey,positionNew, Quaternion.identity);
+        //monkey.transform.position = positionNew;
         monkiSound.Play();
-    }
-
-    private void OnMouseDown()
-    {
-        bananaThrow.Play();
-        Score += 1;
-        Appearing();
     }
 
 }
